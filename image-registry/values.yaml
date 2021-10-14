@@ -1,0 +1,104 @@
+# Default values for image-registry.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: registry
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "2.6.2"
+
+imagePullSecrets: []
+nameOverride: "image-registry"
+fullnameOverride: "image-registry"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "registry"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+volumeMounts:
+- mountPath: "/var/lib/registry"
+  name: registry-data
+- mountPath: "/auth/htpasswd"
+  name: cm-htpasswd
+  subPath: htpasswd
+
+env:
+- name: REGISTRY_AUTH
+  value: htpasswd
+- name: REGISTRY_AUTH_HTPASSWD_REALM
+  value: Registry
+- name: REGISTRY_AUTH_HTPASSWD_PATH
+  value: /auth/htpasswd
+- name: REGISTRY_HTTP_ADDR
+  value: :5000
+- name: REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY
+  value: /var/lib/registry
+
+ports:
+- containerPort: 5000
+  name: registry
+  protocol: TCP
+
+selectorLabels:
+- app: my-registry
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 5000
+
+volumes:
+- name: registry-data
+  persistentVolumeClaim:
+    claimName: registry-data
+- configMap:
+    defaultMode: 420
+    items:
+    - key: htpasswd
+      path: htpasswd
+    name: cm-htpasswd
+  name: cm-htpasswd
+
+resources: 
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: app
+          operator: In
+          values:
+          - my-registry
+      topologyKey: "kubernetes.io/hostname"

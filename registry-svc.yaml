@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-registry
+spec:
+  selector:
+    app: my-registry
+  ports:
+    - protocol: TCP
+      port: 5000
+      name: http

@@ -1,0 +1,14 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: registry
+spec:
+  port:
+    targetPort: 5000
+    termination: edge
+  to:
+    kind: ""
+    name: image-registry
+    weight: 100
+  wildcardPolicy: None
+status: {}

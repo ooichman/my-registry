@@ -3,9 +3,9 @@ kind: Deployment
 metadata:
   labels:
     app: my-registry
-name: my-registry
+  name: my-registry
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: my-registry
@@ -23,6 +23,7 @@ spec:
                 operator: In
                 values:
                 - my-registry
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - env:
         - name: REGISTRY_AUTH

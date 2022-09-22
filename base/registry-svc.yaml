@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: my-registry
+  name: image-registry
 spec:
   selector:
-    app: my-registry
+    app: image-registry
   ports:
     - protocol: TCP
       port: 5000

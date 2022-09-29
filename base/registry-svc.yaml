@@ -4,7 +4,7 @@ metadata:
   name: image-registry
 spec:
   selector:
-    app: image-registry
+    app: my-registry
   ports:
     - protocol: TCP
       port: 5000

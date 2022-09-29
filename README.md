@@ -9,6 +9,16 @@ clone the git repository :
 $ git clone https://github.com/ooichman/my-registry
 $ cd my-registry
 ```
+and Create the namespace :
+```bash
+$ kubectl create ns my-registry
+```
+**alternative**
+
+you can create it on Openshift as well with the following command :
+```bash
+$ oc new-project my-registry
+```
 
 ### kubernetes
 For Kubernetes run the following command :

@@ -23,14 +23,14 @@ $ oc new-project my-registry
 ### kubernetes
 For Kubernetes run the following command :
 ```bash
-$ kubectl -k overlays/kubernetes/
+$ kubectl create -k overlays/kubernetes/
 ```
 
 ### OpenShift
 
 For OpenShift Because we are working with a route resource and not an ingress resource run :
 ```bash
-$ oc -k overlays/openshift/
+$ oc create -k overlays/openshift/
 ```
 
 The default username/password are myuser/mypassword (you can change them by modifing the secret file

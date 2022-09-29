@@ -3,6 +3,6 @@ kind: Kustomization
 
 resources:
 - htpasswd-cm.yaml
-- registry-deployment.yaml
 - registry-pvc.yaml
 - registry-svc.yaml
+- registry-deployment.yaml

@@ -5,10 +5,11 @@ metadata:
 spec:
   port:
     targetPort: 5000
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
     termination: edge
   to:
-    kind: ""
+    kind: Service
     name: image-registry
     weight: 100
   wildcardPolicy: None
-status: {}

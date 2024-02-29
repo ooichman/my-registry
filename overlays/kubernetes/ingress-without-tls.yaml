@@ -5,14 +5,16 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-  name: docker-registry
-  namespace: docker-registry
+  name: k3s-registry
 spec:
   rules:
-  - host: registry.<your domain>
+  - host: k3s-registry.ubuntu-k3s.local
     http:
       paths:
-      - backend:
-          serviceName: docker-registry
-          servicePort: 5000
-        path: /
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: image-registry
+            port:
+              number: 5000

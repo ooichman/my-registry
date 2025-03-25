@@ -2,13 +2,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    ingress.class: "haproxy"
   name: k3s-registry
 spec:
+  ingressClassName: haproxy
   rules:
-  - host: k3s-registry.ubuntu-k3s.local
+  - host: k3s-registry.k3s.local 
     http:
       paths:
       - path: /

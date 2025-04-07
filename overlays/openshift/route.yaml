@@ -3,6 +3,7 @@ kind: Route
 metadata:
   name: registry
 spec:
+  host: ${REGISTRY_FQDN}
   port:
     targetPort: 5000
   tls:

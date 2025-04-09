@@ -20,17 +20,22 @@ you can create it on Openshift as well with the following command :
 $ oc new-project my-registry
 ```
 
-### kubernetes
-For Kubernetes run the following command :
+### Environment Variables
+Before we start the deployment we need to setup the REGISTRY_FQDN environment variable:
+
 ```bash
-$ kubectl create -k overlays/kubernetes/
+export REGISTRY_FQDN="registry.example.com"
 ```
 
-### OpenShift
 
-For OpenShift Because we are working with a route resource and not an ingress resource run :
+### kubernetes / OpenShift
+For Kubernetes run the following command :
 ```bash
-$ oc create -k overlays/openshift/
+$  kustomize build overlays/kubernetes/ | envsubst | kubectl apply -f -
+```
+Or for OpenShift
+```bash
+kustomize build overlays/openshift/ | envsubst | oc apply -f -
 ```
 
 The default username/password are myuser/mypassword (you can change them by modifing the secret file

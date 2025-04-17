@@ -6,18 +6,20 @@ A simple Kustomize deployment for Container image registry on to of Kubernetes/O
 
 clone the git repository :
 ```bash
-$ git clone https://github.com/ooichman/my-registry
-$ cd my-registry
+git clone https://github.com/ooichman/my-registry && cd my-registry
 ```
+
 and Create the namespace :
 ```bash
-$ kubectl create ns my-registry
+kubectl create ns my-registry && \
+kubectl config set-context --current --namespace=my-registry
 ```
+
 **alternative**
 
 you can create it on Openshift as well with the following command :
 ```bash
-$ oc new-project my-registry
+oc new-project my-registry
 ```
 
 ### Environment Variables

@@ -31,7 +31,7 @@ export REGISTRY_FQDN="registry.example.com"
 ### kubernetes / OpenShift
 For Kubernetes run the following command :
 ```bash
-$  kustomize build overlays/kubernetes/ | envsubst | kubectl apply -f -
+kustomize build overlays/kubernetes/ | envsubst | kubectl apply -f -
 ```
 Or for OpenShift
 ```bash
